@@ -67,7 +67,7 @@ export default function AddProduct() {
     return (
         <>
             <div className=" sm:w-1/3 md:w-1/4 p-2 mx-6">
-                <Link >
+                <Link to={"/stock"} >
                     <button className=' bg-amber-600 h-10 w-16 text-white rounded-lg '>
                         Editar
                     </button>
