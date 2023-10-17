@@ -100,9 +100,7 @@ export default function Inventary() {
           <option value="lacoste">Lacoste</option>
 
         </select>
-        <button style={{ border: 'none', background: 'transparent' }} onClick={resetFilterChange}>
-          <img src="src\imgs\refresh.png" alt="Botón con imagen" className="h-8 w-8 " />
-        </button>
+       
 
       </div>
       <div>
