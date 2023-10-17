@@ -61,7 +61,7 @@ export default function AddProduct() {
         setalert(true);
         setTimeout(() => {
             setalert(false);
-        }, 3000); // 5000 milisegundos = 5 segundos
+        }, 1000); // 5000 milisegundos = 5 segundos
     }
 
     return (
