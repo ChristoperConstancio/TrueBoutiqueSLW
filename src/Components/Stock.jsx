@@ -57,7 +57,7 @@ export default function Stock() {
     };
     const handleStateChanged = (id, value) => {
         const newProducts = [...products];
-        newProducts[id].price = value;
+        newProducts[id].state = value;
         setProducts(newProducts);
         saveProduct(id);
     };
@@ -70,6 +70,7 @@ export default function Stock() {
             quantity: products[index].quantity,
             size: products[index].size,
             price: products[index].price,
+            state: products[index].state
         };
         await updateDoc(productRef, updatedProduct);
     }
@@ -127,6 +128,8 @@ export default function Stock() {
                             <option value="amarillo">Amarillo</option>
                             <option value="rosa">Rosa</option>
                             <option value="naranja">Naranja</option>
+                            <option value="cafe">Marron</option>
+
                         </select>
                         <label htmlFor={`quantity-${index}`} className="text-gray-700 font-medium block mb-1">
                             Cantidad
@@ -171,7 +174,7 @@ export default function Stock() {
                             Estado
                         </label>
                         <select
-                            id={`size-${index}`}
+                            id={`state-${index}`}
                             className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             value={product.state}
                             onChange={(e) => handleStateChanged(index, e.target.value)}
@@ -180,6 +183,9 @@ export default function Stock() {
                             <option value="vendida">Vendida</option>
                             <option value="pendiente">Pendiente</option>
                             <option value="disponible">Disponible</option>
+                            <option value="oferta">Oferta</option>
+
+
 
                         </select>
                         <div className='justify-center flex'>
@@ -205,6 +211,7 @@ export default function Stock() {
                 ))}
 
             </div>
+            
 
         </>
     )

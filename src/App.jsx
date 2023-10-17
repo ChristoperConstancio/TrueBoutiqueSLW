@@ -4,21 +4,23 @@ import Inventary from './Components/Inventary';
 import Stock from './Components/Stock';
 import AddProduct from './Components/AddProduct';
 import Article from './Components/Article';
-// import { ref } from "firebase/storage"
-import { Route } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Components/Login';
 
 function App() {
-  
+
   return (
-    <>
-      <Header /> 
-      {/* <Stock/>   */}
-      {/* <Inventary/> */}
-      <Article/>
-      {/* <AddProduct/> */}
-  
-    </>
+
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" exact element={<Inventary/>} />
+        <Route path="/stock" element={<Stock/>} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/add-product" element={<AddProduct/>} />
+      </Routes>
+    </Router>
+
   )
 }
 

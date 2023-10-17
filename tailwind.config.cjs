@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     fontFamily: {
       'Raleway': ['Raleway','sans-serif'],
-      'Kaushan': ['Kaushan Script', 'cursive']
+      'Kaushan': ['Kaushan Script', 'cursive'],
+      'Thin': ['Onest','sans-serif']
     },
     extend: {},
   },
