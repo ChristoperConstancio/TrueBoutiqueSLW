@@ -100,18 +100,13 @@ export default function Inventary() {
           <option value="lacoste">Lacoste</option>
 
         </select>
-       
-
       </div>
       <div>
-        
-
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4 max-w-5xl   py-6">
-
             {filteredShirts.map((obj) => (
               obj.state !== 'vendida' ? (
                 <div className="" key={obj.id}>
-                  <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-52 rounded-t-lg" key={`${obj.id}`} />
+                  <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-52 rounded-t-lg object-cover" key={`${obj.id}`} />
                   <div className="w-full py-2 bg-gray-400 rounded-b-xl bg-opacity-30 px-2 h-40 space-y-4">
                     <h2 className="text-xl font-bold md:text-lg font-Thin">{obj.name.length > 20 ? `${obj.name.slice(0, 20)}...` : `${obj.name}${''.repeat(20 - obj.name.length)}`}</h2>
                     <p className="text-gray-600 text-sm font-medium">{obj.size.charAt(0).toUpperCase() + obj.size.slice(1)}</p>
@@ -120,7 +115,6 @@ export default function Inventary() {
                 </div>
               ) : null
             ))}
-
           </div>
         
       </div >

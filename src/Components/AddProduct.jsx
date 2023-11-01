@@ -20,48 +20,94 @@ export default function AddProduct() {
 
         let imageUrl = [];
         for (let i = 0; i < imageFiles.length; i++) {
-            const imageFile = imageFiles[i];
-            const imageName = imageFile.name.split('.')[0]; // Obtén el nombre del archivo sin extensión
-
-            // Sube la imagen a Firebase Storage
+          const imageFile = imageFiles[i];
+          const imageName = imageFile.name.split('.')[0]; // Obtén el nombre del archivo sin extensión
+      
+          try {
+            // Comprimir la imagen antes de subirla
+            const compressedBlob = await compressImage(imageFile);
+      
+            // Sube la imagen comprimida a Firebase Storage
             const shirtImagesRef = ref(storage, `playeras/${imageName}.jpg`);
-            await uploadBytes(shirtImagesRef, imageFile);
-
+            await uploadBytes(shirtImagesRef, compressedBlob);
+      
             imageUrl.push(await getDownloadURL(shirtImagesRef));
-
+          } catch (error) {
+            console.error('Error al comprimir o subir la imagen:', error);
+          }
         }
+      
         // Obtiene la URL de descarga de la imagen subida
-
-        // Crea un nuevo documento en la colección "stock" de Firebase Firestore con los valores de los inputs y la URL de la imagen
-        const stockRef = collection(db, 'Stack');
-        await addDoc(stockRef, {
-            name,
-            color,
-            quantity: parseInt(quantity),
-            size,
-            price: parseFloat(price),
-            state,
-            imageUrl,
-            brand
+      
+              // Crea un nuevo documento en la colección "stock" de Firebase Firestore con los valores de los inputs y la URL de la imagen
+              const stockRef = collection(db, 'Stack');
+              await addDoc(stockRef, {
+                  name,
+                  color,
+                  quantity: parseInt(quantity),
+                  size,
+                  price: parseFloat(price),
+                  state,
+                  imageUrl,
+                  brand
+              });
+              // Limpia los valores de los inputs
+              document.getElementById('name').value = '';
+              document.getElementById('color').value = '';
+              document.getElementById('quantity').value = '';
+              document.getElementById('size').value = '';
+              document.getElementById('price').value = '';
+              document.getElementById('state').value = '';
+              document.getElementById('image').value = '';
+              document.getElementById('brand').value = '';
+      
+              showAlert();
+      };
+      
+      const compressImage = async (imageFile) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+      
+          reader.onload = async (event) => {
+            const compressedBlob = await compressBlob(event.target.result);
+            resolve(compressedBlob);
+          };
+      
+          reader.readAsArrayBuffer(imageFile);
         });
-        // Limpia los valores de los inputs
-        document.getElementById('name').value = '';
-        document.getElementById('color').value = '';
-        document.getElementById('quantity').value = '';
-        document.getElementById('size').value = '';
-        document.getElementById('price').value = '';
-        document.getElementById('state').value = '';
-        document.getElementById('image').value = '';
-        document.getElementById('brand').value = '';
-
-        showAlert();
-    };
-
+      };
+      
+      const compressBlob = async (blob) => {
+        // Aquí puedes usar Imagemin u otra biblioteca de compresión
+        // por ejemplo, utilizando createImageBitmap y canvas para ajustar la calidad de la imagen.
+        const img = new Image();
+        img.src = URL.createObjectURL(new Blob([blob]));
+      
+        return new Promise((resolve) => {
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+      
+            // Ajusta la calidad de la imagen (puedes cambiar el valor)
+            const quality = 0.2
+            console.log(quality);
+      
+            canvas.width = img.width;
+            canvas.height = img.height;
+      
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            canvas.toBlob((resultBlob) => {
+              resolve(resultBlob);
+            }, 'image/jpeg', quality);
+          };
+        });
+      };
+ 
     const showAlert = () => {
         setalert(true);
         setTimeout(() => {
             setalert(false);
-        }, 1000); // 5000 milisegundos = 5 segundos
+        }, 500); // 5000 milisegundos = 5 segundos
     }
 
     return (
