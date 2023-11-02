@@ -27,7 +27,7 @@ export default function Article() {
                         "Sin foto"}
                 </div>
                 {data ?
-                    <div className='bg-gray-200 h-20 w-full'>
+                    <div className=' h-20 w-full'>
                         <p className='font-bold '>{data.name}</p>
                         <h1> <strong>Precio : </strong> $ {data.price} </h1>
                         <h1> <strong>Marca : </strong> {data.brand} </h1>
