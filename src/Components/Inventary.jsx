@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { loadDocument } from "../CustomHooks/useProvider.js";
-import { Link } from 'react-router-dom'; // Asumiendo que estás utilizando react-router-dom para manejar la navegación
+import { useNavigate } from 'react-router-dom'; // Asumiendo que estás utilizando react-router-dom para manejar la navegación
 import filterProducts from "../CustomHooks/filterProducts.js";
 export default function Inventary() {
 
   const [prod, setProd] = useState([]);
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
-    brand: '',
+    genre: '',
     price: '',
     size: '',
     color: '',
@@ -23,7 +24,7 @@ export default function Inventary() {
 
   const resetFilterChange = () => {
     setFilters({
-      brand: '',
+      genre: '',
       price: '',
       size: '',
       color: '',
@@ -31,16 +32,24 @@ export default function Inventary() {
   }
 
   const filteredShirts = prod.filter(shirt => {
+    console.log(shirt.size)
+    console.log(filters.size)
+
+
     return (
-      (filters.brand === '' || shirt.brand === filters.brand) &&
-      (filters.brand === '' || shirt.brand === shirt.brand) &&
+      (filters.genre === '' || shirt.genre === filters.genre) &&
       (filters.size === '' || shirt.size === filters.size)
       && (filters.color === '' || shirt.color === filters.color)
     );
   });
 
+  const redirectArticle = (obj) => {
+    const object = JSON.stringify(obj);
+    localStorage.setItem('object', object)
+    console.log(object)
+    navigate(`/Article/${obj.name}`);
+  }
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const stock = await loadDocument();
@@ -49,17 +58,11 @@ export default function Inventary() {
         console.error('Error fetching data: ', error);
       }
     };
-
     fetchData();
-
   }, [])
-
-
   return (
     < >
-
       <div className="my-3 ml-3 flex gap-x-2 ">
-
         <select
           name="size"
           className="bg-gray-600 text-white rounded-lg  h-8 not-italic"
@@ -85,26 +88,24 @@ export default function Inventary() {
           <option value="rojo" >Rojo</option>
         </select>
         <select
-          name="brand"
+          name="genre"
           className="bg-gray-600 text-white rounded-lg h-8 "
           onChange={handleFilterChange}
-          value={filters.brand}>
-          <option value="">Marca </option>
-          <option value="calvinklein">Calvin Klein</option>
-          <option value="guess">Guess</option>
-          <option value="nautica">Nautica</option>
-          <option value="tommy">Tommy H</option>
-          <option value="penguin">Penguin</option>
-          <option value="karl">Karl Lage</option>
-          <option value="michael">Michael Kors</option>
-          <option value="lacoste">Lacoste</option>
+          value={filters.genre}>
+          <option value="">Genero </option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+
 
         </select>
       </div>
       <div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4 max-w-5xl   py-6">
-            {filteredShirts.map((obj) => (
-              obj.state !== 'vendida' ? (
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4 max-w-5xl   py-6">
+          {filteredShirts.map((obj) => (
+            obj.state !== 'vendida' ? (
+              <button
+                onClick={() => redirectArticle(obj)}
+                >
                 <div className="" key={obj.id}>
                   <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-52 rounded-t-lg object-cover" key={`${obj.id}`} />
                   <div className="w-full py-2 bg-gray-400 rounded-b-xl bg-opacity-30 px-2 h-40 space-y-4">
@@ -113,10 +114,12 @@ export default function Inventary() {
                     <p className="text-2xl font-sans font-medium text-slim">${obj.price}</p>
                   </div>
                 </div>
-              ) : null
-            ))}
-          </div>
-        
+              </button>
+            ) : null
+          ))}
+
+        </div>
+
       </div >
 
     </>

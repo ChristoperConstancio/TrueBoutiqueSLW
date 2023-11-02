@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { collection, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
-import { db } from '../firebase-config';
+import {  updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { ref, deleteObject} from "firebase/storage"
+import { db, storage } from '../firebase-config';
 import { loadDocument } from "../CustomHooks/useProvider.js";
 
 export default function Stock() {
 
 
-   
+
     useEffect(() => {
 
         const fetchData = async () => {
             try {
-              const stock = await loadDocument();
-              console.log(stock); // Haz algo con el array de stock obtenido
-              setProducts(stock)
+                const stock = await loadDocument(); // Haz algo con el array de stock obtenido
+                setProducts(stock)
             } catch (error) {
-              console.error('Error fetching data: ', error);
+                console.error('Error fetching data: ', error);
             }
-          };
-      
-          fetchData();
+        };
+
+        fetchData();
 
     }, [])
-
     const [alert, setalert] = useState(false)
     //Productos que se mostraran vienen del firebase
     const [products, setProducts] = useState([]);
     //Estado auxiliar para agregarlos
+
 
     const handleNameChange = (id, value) => {
         const newProducts = [...products];
@@ -74,10 +74,11 @@ export default function Stock() {
         };
         await updateDoc(productRef, updatedProduct);
     }
-    const eliminar = (index) => {
+    const eliminar = (index, imageUrl) => {
         // Obtener la referencia del documento que se desea eliminar
         const docRef = doc(db, "Stack", index);
-
+        const newProducts = products.filter((articulo) => articulo.imageUrl !== imageUrl);
+        setProducts(newProducts)
         // Eliminar el documento
         deleteDoc(docRef)
             .then(() => {
@@ -93,12 +94,23 @@ export default function Stock() {
             .catch((error) => {
                 console.error("Error al eliminar el documento: ", error);
             });
+        imageUrl = imageUrl + ".jpg";
+        console.log(imageUrl)
+        const imageRef = ref(storage, imageUrl);
+        // Borra el objeto de Firebase Storage
+        deleteObject(imageRef)
+            .then(() => {
+                
+            })
+            .catch((error) => {
+                console.error('Error al eliminar la imagen:', error);
+            });
     }
 
 
     return (
         <>
-            <div className=" block sm:flex ">
+            <div className=" block  sm:grid-cols-3">
                 {products.map((product, index) => (
                     <div key={index} className="w-full sm:w-1/3 p-2 px-5">
                         <label htmlFor={`name-${index}`} className="text-gray-700 font-medium block mb-1">
@@ -194,7 +206,7 @@ export default function Stock() {
                         <div className=' w-24 mx-auto space-y-2 '>
                             <button
                                 className='bg-red-500 text-white font-bold w-full rounded-lg'
-                                onClick={() => eliminar(product.id)}
+                                onClick={() => eliminar(product.id, product.imageUrl)}
                             >
                                 Eliminar
                             </button>
@@ -211,7 +223,7 @@ export default function Stock() {
                 ))}
 
             </div>
-            
+
 
         </>
     )

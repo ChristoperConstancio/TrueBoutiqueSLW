@@ -11,7 +11,7 @@ export default function AddProduct() {
 
         const name = document.getElementById('name').value;
         const color = document.getElementById('color').value;
-        const quantity = document.getElementById('quantity').value;
+        const genre = document.getElementById('genero').value;
         const size = document.getElementById('size').value;
         const price = document.getElementById('price').value;
         const state = document.getElementById('state').value;
@@ -44,7 +44,7 @@ export default function AddProduct() {
               await addDoc(stockRef, {
                   name,
                   color,
-                  quantity: parseInt(quantity),
+                  genre,
                   size,
                   price: parseFloat(price),
                   state,
@@ -54,7 +54,7 @@ export default function AddProduct() {
               // Limpia los valores de los inputs
               document.getElementById('name').value = '';
               document.getElementById('color').value = '';
-              document.getElementById('quantity').value = '';
+              document.getElementById('genero').value = '';
               document.getElementById('size').value = '';
               document.getElementById('price').value = '';
               document.getElementById('state').value = '';
@@ -90,7 +90,6 @@ export default function AddProduct() {
       
             // Ajusta la calidad de la imagen (puedes cambiar el valor)
             const quality = 0.2
-            console.log(quality);
       
             canvas.width = img.width;
             canvas.height = img.height;
@@ -148,13 +147,15 @@ export default function AddProduct() {
                     <label className="text-gray-700 font-medium block mb-1">
                         Cantidad
                     </label>
-                    <input
-                        type="number"
+                    <select
+                        id='genero'
                         className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        min={0}
-                        max={10}
-                        id='quantity'
-                    />
+                    >
+                        <option value="">Genero</option>
+                        <option value="hombre">Hombre</option>
+                        <option value="mujer">Mujer</option>
+
+                    </select>
 
                     <label className="text-gray-700 font-medium block mb-1">
                         Talla
@@ -177,27 +178,28 @@ export default function AddProduct() {
                         className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Selecciona la Marca</option>
-                        <option value="calvinklein">Calvin Klein</option>
-                        <option value="guess">Guess</option>
-                        <option value="nautica">Nautica</option>
-                        <option value="tommy">Tommy Hilfiger</option>
-                        <option value="penguin">Penguin</option>
-                        <option value="karl">Karl Lagerfeld</option>
-                        <option value="michael">Michael Kors</option>
-                        <option value="ralph">Ralph Lauren</option>
-                        <option value="lacoste">Lacoste</option>
-                        <option value="nike">Adidas</option>
-                        <option value="dkny">DKNY</option>
-                        <option value="true">True Religion</option>
-                        <option value="kenneth">Kenneth Cole</option>
+                        <option value="Calvin Klein">Calvin Klein</option>
+                        <option value="Guess">Guess</option>
+                        <option value="Nautica">Nautica</option>
+                        <option value="Tommy Hilfiger">Tommy Hilfiger</option>
+                        <option value="Penguin">Penguin</option>
+                        <option value="Karl">Karl Lagerfeld</option>
+                        <option value="Michael Kors">Michael Kors</option>
+                        <option value="Ralph Lauren">Ralph Lauren</option>
+                        <option value="Lacoste">Lacoste</option>
+                        <option value="Adidas">Adidas</option>
+                        <option value="DKNY">DKNY</option>
+                        <option value="True Religion">True Religion</option>
+                        <option value="Kenneth Cole">Kenneth Cole</option>
                         <option value="columbia">Columbia</option>
-                        <option value="psycho">Psycho Bunny</option>
-                        <option value="north">North Face</option>
-                        <option value="champion">Champion</option>
-                        <option value="reebok">Reebok</option>
-                        <option value="steve">Steve Madden</option>
-                        <option value="puma">Puma</option>
-                        <option value="american">American Eagle</option>
+                        <option value="Psycho Bunny">Psycho Bunny</option>
+                        <option value="North Face">North Face</option>
+                        <option value="Champion">Champion</option>
+                        <option value="Reebok">Reebok</option>
+                        <option value="Steve Madden">Steve Madden</option>
+                        <option value="Puma">Puma</option>
+                        <option value="American Eagle">American Eagle</option>
+                        <option value="Magellan">American Eagle</option>
                     </select>
                     <label className="text-gray-700 font-medium block mb-1">
                         Precio

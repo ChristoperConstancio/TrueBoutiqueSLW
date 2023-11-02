@@ -4,3 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* En tu archivo CSS personalizado o en el archivo de configuración de Tailwind */
+@keyframes moveGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 20%;
+    }
+}
+
+.animate-background {
+    animation: moveGradient 10s linear infinite;
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, rgb(185, 185, 185), rgb(119, 119, 119), rgb(41, 41, 43), rgb(0, 0, 0));
+}
+
