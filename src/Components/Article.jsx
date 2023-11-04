@@ -51,7 +51,7 @@ export default function Article() {
 
 
                 </div>
-                <a href="https://api.whatsapp.com/send?phone=8441307540&text=Hola,%20me%20gusto%20un%20articulo,%20me%20podrias%20dar%20informacion%20sobre">
+                <a href="https://api.whatsapp.com/send?phone=8441307540&text=Hola,%20me%20gusto%20un%20articulo,%20me%20podrias%20dar%20informacion?">
                     <button className='border-2 border-green-600 rounded-lg px-3 py-2 text-white cursor-pointer bg-green-600 hover:bg-white hover:text-green-600 flex '>
                     <img src={whatsapp} alt="" className='h-5 w-5 mr-3' />
                         Pedir Informacion
