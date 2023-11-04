@@ -7,7 +7,7 @@ export default function Article() {
         const loadObject = async () => {
             const object = await localStorage.getItem('object');
             const obj = JSON.parse(object);
-            console.log(obj)
+
             setData(obj)
         }
         loadObject();
