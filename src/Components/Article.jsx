@@ -23,11 +23,11 @@ export default function Article() {
                         "Sin foto"}
                 </div>
                 {data ?
-                    <div className=' h-20 w-full sm:hidden'>
-                        <p className='font-Geologica text-2xl'>{data.name}</p>
-                        <h1 className='font-Geologica text-2xl'> <strong>Precio : </strong>$ {data.price} </h1>
-                        <h1 className='font-Geologica text-2xl'> <strong>Marca : </strong> {data.brand} </h1>
-                        <h1 className='font-Geologica text-2xl'> <strong>Talla : </strong> {data.size} </h1>
+                    <div className='bg-gray-200 h-20 w-full'>
+                        <p className='font-bold '>{data.name}</p>
+                        <h1> <strong>Precio : </strong> {data.price} </h1>
+                        <h1> <strong>Marca : </strong> {data.brand} </h1>
+                        <h1> <strong>Talla : </strong> {data.size} </h1>
 
 
                     </div>
