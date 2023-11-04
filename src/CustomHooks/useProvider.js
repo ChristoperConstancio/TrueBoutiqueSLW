@@ -7,12 +7,12 @@ import { db } from "../firebase-config"; // importa la instancia de la conexión
       try {
         const querySnapshot = await getDocs(collection(db, "Stack"));
         const products = querySnapshot.docs.map((doc) => {
-          const { name, quantity, size, price, color, state, imageUrl, brand } = doc.data();
+          const { name, genre, size, price, color, state, imageUrl, brand } = doc.data();
           const id = doc.id;
           return  {
             name,
             color,
-            quantity,
+            genre,
             size,
             price,
             id,

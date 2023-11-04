@@ -153,7 +153,7 @@ export default function AddProduct() {
                         id='genero'
                         className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     >
-                        <option value="">Genero</option>
+                        
                         <option value="hombre">Hombre</option>
                         <option value="mujer">Mujer</option>
 
@@ -204,6 +204,8 @@ export default function AddProduct() {
                         <option value="Puma">Puma</option>
                         <option value="American Eagle">American Eagle</option>
                         <option value="Magellan">Magellan</option>
+                        <option value="Nike">Nike</option>
+
                     </select>
                     <label className="text-gray-700 font-medium block mb-1">
                         Precio

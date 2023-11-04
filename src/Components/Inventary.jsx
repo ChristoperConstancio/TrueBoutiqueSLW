@@ -48,7 +48,7 @@ export default function Inventary() {
     const fetchData = async () => {
       try {
         const stock = await loadDocument();
-        console.log(stock)
+  
         setProd(stock);
       } catch (error) {
         console.error('Error fetching data: ', error);

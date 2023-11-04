@@ -18,16 +18,16 @@ export default function Article() {
             <div className='px-5 py-5 space-y-8 sm:flex sm:space-x-5 '>
                 <div className=' justify-center flex items-center'>
                     {data ?
-                        <img src={data.imageUrl} className=' rounded-xl h-96 sm:w-80 w-80' />
+                        <img src={data.imageUrl} className=' rounded-xl h-72 sm:w-80 w-80 fit-cover' />
                         :
                         "Sin foto"}
                 </div>
                 {data ?
                     <div className=' h-20 w-full sm:hidden'>
-                        <p className='font-Geologica text-2xl'>{data.name}</p>
-                        <h1 className='font-Geologica text-2xl'> <strong>Precio : </strong> {data.price} </h1>
+                        <p className='font-Geologica text-2xl font-bold'>{data.name}</p>
+                        <h1 className='font-Geologica text-2xl'> <strong>Precio : $</strong> {data.price} </h1>
                         <h1 className='font-Geologica text-2xl'> <strong>Marca : </strong> {data.brand} </h1>
-                        <h1 className='font-Geologica text-2xl'> <strong>Talla : </strong> {data.size} </h1>
+                        <h1 className='font-Geologica text-2xl'> <strong>Talla : </strong> {data.size.charAt(0).toUpperCase() + data.size.slice(1)} </h1>
 
 
                     </div>
@@ -39,10 +39,10 @@ export default function Article() {
                 <div className=' h-20 w-full hidden sm:block sm:h-64'>
                     {data ?
                         <div className=' h-20 w-full hidden sm:block'>
-                            <p className='font-Geologica text-2xl'>{data.name}</p>
+                            <p className='font-Geologica text-2xl font-bold'>{data.name}</p>
                             <h1 className='font-Geologica text-2xl'> <strong>Precio : </strong>  ${data.price} </h1>
                             <h1 className='font-Geologica text-2xl'> <strong>Marca : </strong> {data.brand} </h1>
-                            <h1 className='font-Geologica text-2xl'> <strong>Talla : </strong> {data.size} </h1>
+                            <h1 className='font-Geologica text-2xl'> <strong>Talla : </strong> {data.size.charAt(0).toUpperCase() + data.size.slice(1)} </h1>
 
 
                         </div>
@@ -52,10 +52,15 @@ export default function Article() {
 
                 </div>
                 <a href="https://api.whatsapp.com/send?phone=8441307540&text=Hola,%20me%20gusto%20un%20articulo,%20me%20podrias%20dar%20informacion?">
-                    <button className='border-2 border-green-600 rounded-lg px-3 py-2 text-white cursor-pointer bg-green-600 hover:bg-white hover:text-green-600 flex '>
-                    <img src={whatsapp} alt="" className='h-5 w-5 mr-3' />
-                        Pedir Informacion
-                    </button>
+                    <div className="bg-green-600 hover:bg-white text-white hover:text-green-600 flex rounded-xl px-5 h-10 justify-center items-center mt-5">
+
+                        <img src={whatsapp} alt="" className='h-5 w-5 mr-3' />
+
+                        <button className='font-bold font-Thin'>
+                            Pedir Informacion
+                        </button>
+
+                    </div>
                 </a>
             </div>
 

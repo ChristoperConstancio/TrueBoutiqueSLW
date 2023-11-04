@@ -35,9 +35,9 @@ export default function Stock() {
         saveProduct(id);
     };
 
-    const handleQuantityChange = (id, value) => {
+    const handleGenre = (id, value) => {
         const newProducts = [...products];
-        newProducts[id].quantity = value;
+        newProducts[id].genre = value;
         setProducts(newProducts);
         saveProduct(id);
     };
@@ -67,7 +67,7 @@ export default function Stock() {
         const updatedProduct = {
             name: products[index].name,
             color: products[index].color,
-            quantity: products[index].quantity,
+            genre: products[index].genre,
             size: products[index].size,
             price: products[index].price,
             state: products[index].state
@@ -95,7 +95,6 @@ export default function Stock() {
                 console.error("Error al eliminar el documento: ", error);
             });
         imageUrl = imageUrl + ".jpg";
-        console.log(imageUrl)
         const imageRef = ref(storage, imageUrl);
         // Borra el objeto de Firebase Storage
         deleteObject(imageRef)
@@ -110,9 +109,9 @@ export default function Stock() {
 
     return (
         <>
-            <div className=" block  sm:grid-cols-3">
+            <div className="   sm:grid-cols-4 grid">
                 {products.map((product, index) => (
-                    <div key={index} className="w-full sm:w-1/3 p-2 px-5">
+                    <div key={index} className="w-full p-2 px-5">
                         <label htmlFor={`name-${index}`} className="text-gray-700 font-medium block mb-1">
                             Nombre
                         </label>
@@ -143,18 +142,19 @@ export default function Stock() {
                             <option value="cafe">Marron</option>
 
                         </select>
-                        <label htmlFor={`quantity-${index}`} className="text-gray-700 font-medium block mb-1">
-                            Cantidad
+                        <label htmlFor={`genre-${index}`} className="text-gray-700 font-medium block mb-1">
+                            Genero
                         </label>
-                        <input
-                            type="number"
-                            id={`quantity-${index}`}
+                        <select
+                            id={`genre-${index}`}
                             className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                            value={product.quantity}
-                            min={0}
-                            max={10}
-                            onChange={(e) => handleQuantityChange(index, e.target.value)}
-                        />
+                            value={product.genre}
+                            onChange={(e) => handleGenre(index, e.target.value)}
+                        >
+                            <option value="">Selecciona el genero </option>
+                            <option value="hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                        </select>
 
                         <label htmlFor={`size-${index}`} className="text-gray-700 font-medium block mb-1">
                             Talla
@@ -169,6 +169,8 @@ export default function Stock() {
                             <option value="chica">Chica</option>
                             <option value="mediana">Mediana</option>
                             <option value="grande">Grande</option>
+                            <option value="extragrande">XL</option>
+
 
                         </select>
 
