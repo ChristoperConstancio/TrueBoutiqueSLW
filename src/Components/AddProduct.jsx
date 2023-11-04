@@ -137,6 +137,8 @@ export default function AddProduct() {
                         <option value="rojo">Rojo</option>
                         <option value="azul">Azul</option>
                         <option value="blanco">Blanco</option>
+                        <option value="verde">Verde</option>
+                        <option value="gris">Gris</option>
                         <option value="negro">Negro</option>
                         <option value="amarillo">Amarillo</option>
                         <option value="rosa">Rosa</option>
@@ -168,6 +170,8 @@ export default function AddProduct() {
                         <option value="chica">Chica</option>
                         <option value="mediana">Mediana</option>
                         <option value="grande">Grande</option>
+                        <option value="Extragrande">XL</option>
+
 
                     </select>
                     <label className="text-gray-700 font-medium block mb-1">
@@ -199,7 +203,7 @@ export default function AddProduct() {
                         <option value="Steve Madden">Steve Madden</option>
                         <option value="Puma">Puma</option>
                         <option value="American Eagle">American Eagle</option>
-                        <option value="Magellan">American Eagle</option>
+                        <option value="Magellan">Magellan</option>
                     </select>
                     <label className="text-gray-700 font-medium block mb-1">
                         Precio

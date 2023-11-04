@@ -8,7 +8,8 @@ module.exports = {
     fontFamily: {
       'Raleway': ['Raleway','sans-serif'],
       'Kaushan': ['Kaushan Script', 'cursive'],
-      'Thin': ['Onest','sans-serif']
+      'Thin': ['Onest','sans-serif'],
+      'Geologica' : ['Geologica', 'sans-serif']
     },
     extend: {},
   },

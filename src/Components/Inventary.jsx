@@ -32,10 +32,6 @@ export default function Inventary() {
   }
 
   const filteredShirts = prod.filter(shirt => {
-    console.log(shirt.size)
-    console.log(filters.size)
-
-
     return (
       (filters.genre === '' || shirt.genre === filters.genre) &&
       (filters.size === '' || shirt.size === filters.size)
@@ -46,13 +42,13 @@ export default function Inventary() {
   const redirectArticle = (obj) => {
     const object = JSON.stringify(obj);
     localStorage.setItem('object', object)
-    console.log(object)
     navigate(`/Article/${obj.name}`);
   }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const stock = await loadDocument();
+        console.log(stock)
         setProd(stock);
       } catch (error) {
         console.error('Error fetching data: ', error);
@@ -99,28 +95,28 @@ export default function Inventary() {
 
         </select>
       </div>
-      <div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4 max-w-5xl   py-6">
-          {filteredShirts.map((obj) => (
-            obj.state !== 'vendida' ? (
-              <button
-                onClick={() => redirectArticle(obj)}
-                >
-                <div className="" key={obj.id}>
-                  <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-52 rounded-t-lg object-cover" key={`${obj.id}`} />
-                  <div className="w-full py-2 bg-gray-400 rounded-b-xl bg-opacity-30 px-2 h-40 space-y-4">
-                    <h2 className="text-xl font-bold md:text-lg font-Thin">{obj.name.length > 20 ? `${obj.name.slice(0, 20)}...` : `${obj.name}${''.repeat(20 - obj.name.length)}`}</h2>
-                    <p className="text-gray-600 text-sm font-medium">{obj.size.charAt(0).toUpperCase() + obj.size.slice(1)}</p>
-                    <p className="text-2xl font-sans font-medium text-slim">${obj.price}</p>
-                  </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4  py-6">
+        {filteredShirts.map((obj) => (
+          obj.state !== 'vendida' ? (
+            <button
+              onClick={() => redirectArticle(obj)}
+              key={obj.id}
+            >
+              <div className="" key={obj.id}>
+                <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-72 rounded-t-lg object-cover" key={`${obj.id}`} />
+                <div className="w-full py-2 bg-gray-400 rounded-b-xl bg-opacity-30 px-2 h-40 space-y-4">
+                  <h2 className="text-xl font-bold md:text-lg font-Thin">{obj.name.length > 20 ? `${obj.name.slice(0, 20)}...` : `${obj.name}${''.repeat(20 - obj.name.length)}`}</h2>
+                  <p className="text-gray-600 text-sm font-medium">{obj.size.charAt(0).toUpperCase() + obj.size.slice(1)}</p>
+                  <p className="text-2xl font-Geologica text-slim">${obj.price}</p>
                 </div>
-              </button>
-            ) : null
-          ))}
+              </div>
+            </button>
+          ) : null
+        ))}
 
-        </div>
+      </div>
 
-      </div >
 
     </>
   );
