@@ -18,7 +18,7 @@ export default function Article() {
             <div className='px-5 py-5 space-y-8 sm:flex sm:space-x-5 '>
                 <div className=' justify-center flex items-center'>
                     {data ?
-                        <img src={data.imageUrl} className=' rounded-xl h-72 sm:w-80 w-80 fit-cover' />
+                        <img src={data.imageUrl} className=' rounded-xl object-cover max-w-full mx-auto' />
                         :
                         "Sin foto"}
                 </div>
