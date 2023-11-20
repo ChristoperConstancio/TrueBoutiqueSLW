@@ -21,7 +21,7 @@ export default function AddProduct() {
         for (let i = 0; i < imageFiles.length; i++) {
           const imageFile = imageFiles[i];
           const imageName = imageFile.name.split('.')[0]; // Obtén el nombre del archivo sin extensión
-      
+          console.log(imageFile.name)
           try {
             // Comprimir la imagen antes de subirla
             const compressedBlob = await compressImage(imageFile);
