@@ -56,7 +56,6 @@ export default function AddProduct() {
               document.getElementById('genero').value = '';
               document.getElementById('size').value = '';
               document.getElementById('price').value = '';
-              document.getElementById('state').value = '';
               document.getElementById('image').value = '';
               document.getElementById('brand').value = '';
       
@@ -88,7 +87,7 @@ export default function AddProduct() {
             const ctx = canvas.getContext('2d');
       
             // Ajusta la calidad de la imagen (puedes cambiar el valor)
-            const quality = 0.2
+            const quality = 0.5
       
             canvas.width = img.width;
             canvas.height = img.height;
