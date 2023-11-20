@@ -3,6 +3,7 @@ import { db, storage } from '../firebase-config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import heic2any from 'heic2any';
 export default function AddProduct() {
 
     const [alert, setalert] = useState(false)
@@ -25,10 +26,11 @@ export default function AddProduct() {
           try {
             // Comprimir la imagen antes de subirla
             const compressedBlob = await compressImage(imageFile);
-      
+            const jpegBlob = await convertirHEICaJPEG(compressedBlob);
+
             // Sube la imagen comprimida a Firebase Storage
             const shirtImagesRef = ref(storage, `playeras/${imageName}.jpeg`);
-            await uploadBytes(shirtImagesRef, compressedBlob);
+            await uploadBytes(shirtImagesRef, jpegBlob);
       
             imageUrl.push(await getDownloadURL(shirtImagesRef));
           } catch (error) {
@@ -61,7 +63,16 @@ export default function AddProduct() {
       
               showAlert();
       };
-      
+      const convertirHEICaJPEG = async (heicBlob) => {
+        try {
+          // Convierte el blob HEIC a un blob JPEG
+          const jpegBlob = await heic2any({ blob: heicBlob, toType: 'image/jpeg', quality: 0.8 });
+          return jpegBlob;
+        } catch (error) {
+          console.error('Error al convertir HEIC a JPEG:', error);
+          throw error;
+        }
+      };
       const compressImage = async (imageFile) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
