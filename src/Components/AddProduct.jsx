@@ -14,7 +14,6 @@ export default function AddProduct() {
         const genre = document.getElementById('genero').value;
         const size = document.getElementById('size').value;
         const price = document.getElementById('price').value;
-        const state = document.getElementById('state').value;
         const imageFiles = document.getElementById('image').files;
         const brand = document.getElementById('brand').value;
 
@@ -28,7 +27,7 @@ export default function AddProduct() {
             const compressedBlob = await compressImage(imageFile);
       
             // Sube la imagen comprimida a Firebase Storage
-            const shirtImagesRef = ref(storage, `playeras/${imageName}.jpg`);
+            const shirtImagesRef = ref(storage, `playeras/${imageName}.jpeg`);
             await uploadBytes(shirtImagesRef, compressedBlob);
       
             imageUrl.push(await getDownloadURL(shirtImagesRef));
@@ -47,7 +46,7 @@ export default function AddProduct() {
                   genre,
                   size,
                   price: parseFloat(price),
-                  state,
+                  state : 'disponible',
                   imageUrl,
                   brand
               });
@@ -147,7 +146,7 @@ export default function AddProduct() {
 
                     </select>
                     <label className="text-gray-700 font-medium block mb-1">
-                        Cantidad
+                        Genero
                     </label>
                     <select
                         id='genero'
@@ -219,16 +218,6 @@ export default function AddProduct() {
                     <label className="text-gray-700 font-medium block mb-1">
                         Estado
                     </label>
-                    <select
-                        id='state'
-                        className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                        <option value="">Selecciona el estado</option>
-                        <option value="vendida">Vendida</option>
-                        <option value="pendiente">Pendiente</option>
-                        <option value="disponible">Disponible</option>
-
-                    </select>
                     <input type="file" id='image' multiple />
                     <hr />
                     <div className="w-full sm:w-full p-2 space-x-2 flex items-center">
