@@ -179,7 +179,7 @@ export default function AddProduct() {
                         <option value="chica">Chica</option>
                         <option value="mediana">Mediana</option>
                         <option value="grande">Grande</option>
-                        <option value="Extragrande">XL</option>
+                        <option value="extragrande">XL</option>
 
 
                     </select>
