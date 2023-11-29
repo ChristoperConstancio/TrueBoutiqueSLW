@@ -29,7 +29,7 @@ export default function AddProduct() {
             const jpegBlob = await convertirHEICaJPEG(compressedBlob);
 
             // Sube la imagen comprimida a Firebase Storage
-            const shirtImagesRef = ref(storage, `playeras/${imageName}.jpeg`);
+            const shirtImagesRef = ref(storage, `playeras/${imageName}.jpg`);
             await uploadBytes(shirtImagesRef, jpegBlob);
       
             imageUrl.push(await getDownloadURL(shirtImagesRef));
