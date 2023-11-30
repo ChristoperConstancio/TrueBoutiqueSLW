@@ -29,7 +29,7 @@ export default function AddProduct() {
 
             // Sube la imagen comprimida a Firebase Storage
             console.log("imageName")
-            const shirtImagesRef = ref(storage, `playeras/${imageName}.jpg`);
+            const shirtImagesRef = ref(storage, `playeras/${imageName}`);
             await uploadBytes(shirtImagesRef, compressedBlob);
       
             imageUrl.push(await getDownloadURL(shirtImagesRef));
