@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { loadDocument } from "../CustomHooks/useProvider.js";
 import { useNavigate } from 'react-router-dom'; // Asumiendo que estás utilizando react-router-dom para manejar la navegación
 import filterProducts from "../CustomHooks/filterProducts.js";
-import { ɵɵdeferPrefetchOnImmediate } from "@angular/core";
 export default function Inventary() {
 
   const [prod, setProd] = useState([]);
