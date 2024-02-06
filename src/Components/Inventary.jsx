@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { loadDocument } from "../CustomHooks/useProvider.js";
 import { useNavigate } from 'react-router-dom'; // Asumiendo que estás utilizando react-router-dom para manejar la navegación
 import filterProducts from "../CustomHooks/filterProducts.js";
+import { ɵɵdeferPrefetchOnImmediate } from "@angular/core";
 export default function Inventary() {
 
   const [prod, setProd] = useState([]);
@@ -44,16 +45,39 @@ export default function Inventary() {
     localStorage.setItem('object', object)
     navigate(`/Article/${obj.name}`);
   }
+  const calculateInventary = () => {
+    try {
+      if (!prod) {
+        console.error('No se han cargado los datos del inventario.');
+        return;
+      }
+  
+      let dinero = 0;
+      prod.forEach(item => {
+        const itemPrice = parseInt(item.price);
+  
+        if (isNaN(itemPrice)) {
+          console.error(`Precio no válido para el artículo: ${item.name}`);
+        } else {
+          dinero += itemPrice;
+        }
+      });
+  
+      console.log('Precio total de todos los artículos:', dinero);
+    } catch (error) {
+      console.error('Error al calcular el inventario: ', error);
+    }
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const stock = await loadDocument();
-  
-        setProd(stock);
+                setProd(stock);
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
     };
+    
     fetchData();
   }, [])
   return (
@@ -95,7 +119,6 @@ export default function Inventary() {
 
         </select>
       </div>
-
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 mx-4 gap-4  py-6">
         {filteredShirts.map((obj) => (
           obj.state !== 'vendida' ? (
@@ -106,7 +129,7 @@ export default function Inventary() {
               <div className="" key={obj.id}>
                 <img src={obj.imageUrl} alt="ropa-caballero" className="w-full h-52 sm:h-72 rounded-t-lg object-cover" key={`${obj.id}`} />
                 <div className="w-full py-2 bg-gray-400 rounded-b-xl bg-opacity-30 px-2 h-40 space-y-4">
-                  <h2 className="text-xl font-bold md:text-lg font-Thin">{obj.name.length > 20 ? `${obj.name.slice(0, 20)}...` : `${obj.name}${''.repeat(20 - obj.name.length)}`}</h2>
+                  <h2 className="text-xl font-bold md:text-lg font-Thin">{obj.name.length > 20 ? `${obj.name.slice(0, 20)}...` : `${obj.name} ${obj.brand}${''.repeat(20 - obj.name.length)}`}</h2>
                   <p className="text-gray-600 text-sm font-medium">{obj.size.charAt(0).toUpperCase() + obj.size.slice(1)}</p>
                   <p className="text-2xl font-Geologica text-slim">${obj.price}</p>
                 </div>

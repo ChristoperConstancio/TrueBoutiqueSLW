@@ -28,9 +28,10 @@ export default function Header() {
       </nav>
       <div className='mx-4 h-80 flex justify-center pt-20 '>
         {/* <h1 className="absolute font-bold text-gray-700 text-8xl opacity-80 font-Kaushan mb-2">TB</h1> */}
-        <h1 className="absolute font-Raleway pr-32 text-xl  text-gray-300 font-bold sm:text-lg"> True</h1>
-        <h1 className=' pl-7 font-Kaushan  text-4xl text-amber-500 sm:text-4xl '>Boutique </h1>
+        <h1 className="absolute font-Raleway pr-32 text-5xl  text-gray-300 font-bold sm:text-lg"> True</h1>
+        <h1 className=' pl-20 pt-5 font-Kaushan text-5xl text-amber-500 sm:text-4xl '>Boutique </h1>
       </div>
+      
     </header>
   )
 }

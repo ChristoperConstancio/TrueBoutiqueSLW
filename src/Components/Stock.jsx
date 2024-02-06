@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {  updateDoc, doc, deleteDoc } from "firebase/firestore";
+import {  updateDoc, deleteDoc, collection, getDocs, doc } from "firebase/firestore";
 import { ref, deleteObject} from "firebase/storage"
 import { db, storage } from '../firebase-config';
 import { loadDocument } from "../CustomHooks/useProvider.js";
@@ -18,7 +18,24 @@ export default function Stock() {
                 console.error('Error fetching data: ', error);
             }
         };
-
+        const updatePrices = async () => {
+            // Obtener una referencia a la colección "Stack" en Firestore
+            const querySnapshot = await getDocs(collection(db, "Stack"));
+        
+            // Iterar sobre cada documento en la colección
+            querySnapshot.forEach(async (docu) => {
+                // Obtener el documento y los datos del producto
+                const productData = docu.data();
+        
+                // Verificar si el precio del producto es igual a 650
+                if (productData.name.substring(0,11) == 'Rompeviento') {
+                    const productRef = doc(db, "Stack", docu.id);
+                    updateDoc(productRef, {name : 'Rompeviento'})
+                    console.log(productData.name.substring(0,9) )
+                }
+            });
+        };
+        // updatePrices();
         fetchData();
 
     }, [])
@@ -82,13 +99,7 @@ export default function Stock() {
         // Eliminar el documento
         deleteDoc(docRef)
             .then(() => {
-                setalert(true);
-                setTimeout(() => {
-                    setalert(false);
-                }, 2000); // 5000 milisegundos = 5 segundos
-                setTimeout(() => {
-                    loadDocument();
-                }, 3000);
+                
 
             })
             .catch((error) => {
@@ -119,7 +130,7 @@ export default function Stock() {
                             type="text"
                             id={`name-${index}`}
                             className="w-full border-gray-300 border rounded px-3 py-2 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                            value={product.name}
+                            value={`${product.name} ${product.brand}`}
                             onChange={(e) => handleNameChange(index, e.target.value)}
                         />
                         <label htmlFor={`size-${index}`} className="text-gray-700 font-medium block mb-1">
